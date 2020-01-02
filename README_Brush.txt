@@ -1,0 +1,8 @@
+In "Brush", I decided to make a currentBrush member variable in the Canvas2D object, which will switch between each of the brushes when the user selects a different brush. For each of the brush object (Constant, Linear, Quadratic, Smudge), 
+a mask will be calculated, which is done by implementing its own version of the makeMask() function in parent class Brush. Specifically, the smudge brush's makeMask() function inherits from Quadratic brush, which means Smudge brush does not
+implement its own makeMask() function. When the mouse is dragged, brushDragged() function is called and depending on the selected brush, the children brushes will implement Brush's brushDragged(). Smudge brush is a special case, in which
+its own method is implemented. When a smudge brush calls brushDragged(), it will first put down paint at the covered area and then immediately pick up paint. Each smudge brush objects has a unique member variable "m_buffer", which is used 
+to store the information about paint being picked up. This buffer is emptied/reset every time the brush picks up more paint. 
+
+Known bug(s):
+- The Smudge brush does not clear the paint in the corners or edges. 
